@@ -2,17 +2,19 @@ source components/common.sh
 
 CHECK_ROOT
 
-echo "configure yum repos"
+PRINT "configure yum repos"
 curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>${LOG}
 CHECK_STAT $?
 
-echo "Install nodejs"
+PRINT "Install nodejs"
 yum install nodejs -y &>>${LOG}
 CHECK_STAT $?
 
-echo "Add application user"
+PRINT "Add application user"
 useradd roboshop &>>${LOG}
 CHECK_STAT $?
+
+exit
 
 echo "Download cart content"
 curl -s -L -o /tmp/cart.zip "https://github.com/roboshop-devops-project/cart/archive/main.zip" &>>${LOG}
