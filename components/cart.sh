@@ -22,7 +22,7 @@ cd /home/roboshop
 
 echo "Remove old content"
 rm -rf cart &>>${LOG}
-CHECK_STAT$?
+CHECK_STAT $?
 
 echo "Extract cart content"
 unzip /tmp/cart.zip &>>${LOG}
