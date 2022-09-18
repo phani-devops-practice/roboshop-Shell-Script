@@ -3,7 +3,7 @@ source components/common.sh
 CHECK_ROOT
 
 if [ -z "${MYSQL_PASSWORD}" ]; then
-  echo "\e[31mMYSQL_PASSWORD variable needed\e[0m"
+  echo -e "\e[31mMYSQL_PASSWORD variable needed\e[0m"
   exit
 fi
 
