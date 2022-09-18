@@ -10,9 +10,12 @@ PRINT "Install nodejs"
 yum install nodejs -y &>>${LOG}
 CHECK_STAT $?
 
-PRINT "Add application user"
-useradd roboshop &>>${LOG}
-CHECK_STAT $?
+id roboshop
+if [ $? -ne 0 ]; then
+  PRINT "Add application user"
+  useradd roboshop &>>${LOG}
+  CHECK_STAT $?
+fi
 
 exit
 
