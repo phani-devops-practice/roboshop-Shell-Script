@@ -86,6 +86,37 @@ NODEJS() {
 
 }
 
+NGINX() {
+
+  PRINT "Install nginx"
+  yum install nginx -y &>>${LOG}
+  CHECK_STAT $?
+
+  PRINT "Configure ${COMPONENT} content"
+  curl -s -L -o /tmp/frontend.zip "https://github.com/roboshop-devops-project/frontend/archive/main.zip" &>>${LOG} && cd /usr/share/nginx/html
+  CHECK_STAT $?
+
+  PRINT "Remove old content"
+  rm -rf * &>>${LOG}
+  CHECK_STAT $?
+
+  PRINT "Extract the ${COMPONENT} content"
+  unzip /tmp/frontend.zip &>>${LOG}
+  CHECK_STAT $?
+
+  PRINT "Organise content"
+  mv frontend-main/static/* . &>>${LOG} && mv frontend-main/localhost.conf /etc/nginx/default.d/roboshop.conf  &>>${LOG}
+  CHECK_STAT $?
+
+  PRINT "Update the systemd service"
+  sed -i -e "/catalogue/ s/localhost/catalogue.roboshop.internal/" -e "/user/ s/localhost/user.roboshop.internal/" -e "/cart/ s/localhost/cart.roboshop.internal/" -e "/shipping/ s/localhost/shipping.roboshop.internal/" -e "/payment/ s/localhost/payment.roboshop.internal/" /etc/nginx/default.d/roboshop.conf &>>${LOG}
+  CHECK_STAT $?
+
+  PRINT "Start the ${COMPONENT}" service
+  systemctl restart nginx &>>${LOG} && systemctl enable nginx &>>${LOG}
+  CHECK_STAT $?
+}
+
 
 
 
