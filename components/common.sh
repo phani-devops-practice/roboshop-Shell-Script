@@ -21,7 +21,7 @@ CHECK_STAT() {
 
 PRINT() {
   if [ $1 -ne 0 ]; then
-    echo -e "$1" >>${LOG}
+    echo -e "$1" 
     echo -e "-----$1-----" >>${LOG}
   fi
 }
