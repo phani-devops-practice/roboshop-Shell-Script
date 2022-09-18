@@ -29,7 +29,7 @@ if [ $? -ne 0 ]; then
   CHECK_STAT $?
 fi
 
-echo show plugins | mysql -uroot -p"{MYSQL_PASSWORD}" 2>>${LOG} | grep validate_password &>>${LOG}
+echo show plugins | mysql -uroot -p"${MYSQL_PASSWORD}" 2>>${LOG} | grep validate_password &>>${LOG}
 if [ $? -eq 0 ]; then
   PRINT "uninstall the validate_plugin"
   echo "uninstall plugin validate_password;" | mysql -uroot -p"${MYSQL_PASSWORD}" &>>${LOG}
