@@ -2,6 +2,7 @@ CHECK_ROOT() {
   USER_ID=$(id -u)
   if [ ${USER_ID} -ne 0 ]; then
     echo -e "\e[31m Needed to run the script as root user or add sudo\e[0m"
+    echo -e "\n check log file - ${LOG} for errors\n"
     exit
   fi
 }
@@ -16,3 +17,5 @@ CHECK_STAT() {
     echo -e "\e[32m SUCCESS \e[0m"
   fi
 }
+
+
