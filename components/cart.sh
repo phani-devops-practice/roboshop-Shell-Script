@@ -40,9 +40,9 @@ sed -i -e 's/REDIS_ENDPOINT/redis.roboshop.internal/' -e 's/CATALOGUE_ENDPOINT/c
 CHECK_STAT $?
 
 
-mv /home/roboshop/cart/systemd.service /etc/systemd/system/cart.service
-systemctl daemon-reload
-systemctl enable cart
+mv /home/roboshop/cart/systemd.service /etc/systemd/system/cart.service &>>${LOG}
+systemctl daemon-reload &>>${LOG}
+systemctl enable cart &>>${LOG}
 
 echo "Start cart service"
 systemctl restart cart &>>${LOG}
