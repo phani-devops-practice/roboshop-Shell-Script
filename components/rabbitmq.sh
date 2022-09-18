@@ -4,7 +4,7 @@ CHECK_ROOT
 
 if [ -z "${RABBITMQ_USER_PASSWORD}" ]; then
   echo -e "\e[31mRABBITMQ_USER_PASSWORD variable needed\e[0m"
-  exit 1
+  exit 
 fi
 
 PRINT "Configure yum repos"
