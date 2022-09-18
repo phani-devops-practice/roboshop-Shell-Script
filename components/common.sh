@@ -30,7 +30,7 @@ APP_COMMON_SETUP() {
     PRINT "Add application user"
     id roboshop &>>${LOG}
     if [ $? -ne 0 ]; then
-      echo useradd roboshop &>>${LOG}
+      useradd roboshop &>>${LOG}
     fi
     CHECK_STAT $?
 
