@@ -10,10 +10,11 @@ LOG=/tmp/roboshop.log
 rm -f $LOG
 
 CHECK_STAT() {
-  echo "----------------------------" >>${LOG}
-  echo -e "\n check log file - ${LOG} for errors\n" 
-  if [ $1 -ne 0 ]; then
+  echo "----------------------" >>${LOG}
+  if [ $? -ne 0 ]; then
     echo -e "\e[31m FAILURE \e[0m"
+    echo -e "\n check log file - ${LOG} for errors\n"
+    exit 1
   else
     echo -e "\e[32m SUCCESS \e[0m"
   fi
@@ -21,9 +22,11 @@ CHECK_STAT() {
 
 PRINT() {
   if [ $? -ne 0 ]; then
-    echo -e "$1" 
     echo -e "-----$1-----" >>${LOG}
+    echo -e "$1"
   fi
 }
+
+9591851420      1320
 
 
