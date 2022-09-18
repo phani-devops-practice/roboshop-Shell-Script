@@ -19,8 +19,12 @@ PRINT "Start the rabbitmq service"
 systemctl start rabbitmq-server &>>${LOG} && systemctl enable rabbitmq-server &>>${LOG}
 CHECK_STAT $?
 
+
 PRINT "Create the app user"
-rabbitmqctl add_user roboshop ${RABBITMQ_USER_PASSWORD} &>>${LOG}
+rabbitmqctl list_users | grep roboshop &>>${LOG}
+if [ $? -ne 0 ]; then
+  rabbitmqctl add_user roboshop ${RABBITMQ_USER_PASSWORD} &>>${LOG}
+fi
 CHECK_STAT $?
 
 PRINT "Add tags and permissions"
