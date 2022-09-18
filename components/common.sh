@@ -35,11 +35,11 @@ APP_COMMON_SETUP() {
     CHECK_STAT $?
 
     PRINT "Download cart content"
-    curl -s -L -o /tmp/${COMPONENT}.zip "https://github.com/roboshop-devops-project/${COMPONENT}/archive/main.zip" &>>${LOG}
+    curl -s -L -o /tmp/${COMPONENT}.zip "https://github.com/roboshop-devops-project/${COMPONENT}/archive/main.zip" &>>${LOG} && cd /home/roboshop
     CHECK_STAT $?
 
     PRINT "Remove old content"
-    cd /home/roboshop && rm -rf ${COMPONENT} &>>${LOG}
+    rm -rf ${COMPONENT} &>>${LOG}
     CHECK_STAT $?
 
     PRINT "Extract ${COMPONENT} content"
