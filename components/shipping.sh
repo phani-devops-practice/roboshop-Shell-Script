@@ -1,0 +1,1 @@
+echo Install shipping Component
