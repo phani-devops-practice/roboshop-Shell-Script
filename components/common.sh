@@ -3,6 +3,7 @@ CHECK_ROOT() {
   if [ ${USER_ID} -ne 0 ]; then
     echo -e "\e31m Needed to run the script as root user or add sudo\e[0m"
     exit
+  fi
 }
 
 LOG=/tmp/roboshop.log
