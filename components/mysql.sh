@@ -12,7 +12,7 @@ yum install mysql-community-server -y &>>${LOG}
 CHECK_STAT $?
 
 PRINT "Start the mysql service"
-systemctl start mysqld &>>${LOG} && systemctl enable mysqld &>>${LOG}
+systemctl restart mysqld &>>${LOG} && systemctl enable mysqld &>>${LOG}
 CHECK_STAT $?
 
 #MYSQL_DEFAULT_PASSWORD=$(grep 'temporary password' /var/log/mysqld.log | awk '{print $NF}')
