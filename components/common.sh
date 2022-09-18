@@ -51,7 +51,7 @@ APP_COMMON_SETUP() {
 SYSTEMD() {
 
   PRINT "Update systemd configuration"
-  sed -i -e 's/REDIS_ENDPOINT/redis.roboshop.internal/' -e 's/CATALOGUE_ENDPOINT/catalogue.roboshop.internal/' -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' -e 's/REDIS_ENDPOINT/redis.roboshop.internal/' -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/' -e 's/CARTENDPOINT/cart.roboshop.internal/' -e 's/DBHOST/mysql.roboshop.internal/' -e 's/CARTHOST/cart.roboshop.internal/' -e 's/USERHOST/user.roboshop.internal/' -e 's/AMQPHOST/rabbitmq.roboshop.internal/' /home/roboshop/${COMPONENT}/systemd.service &>>${LOG}
+  sed -i -e 's/REDIS_ENDPOINT/redis.roboshop.internal/' -e 's/CATALOGUE_ENDPOINT/catalogue.roboshop.internal/' -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' -e 's/REDIS_ENDPOINT/redis.roboshop.internal/' -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/' -e 's/CARTENDPOINT/cart.roboshop.internal/' -e 's/DBHOST/mysql.roboshop.internal/' -e 's/CARTHOST/cart.roboshop.internal/' -e 's/USERHOST/user.roboshop.internal/' -e 's/AMQPHOST/rabbitmq.roboshop.internal/' -e 's/RABBITMQ-IP/rabbitmq.roboshop.internal/' /home/roboshop/${COMPONENT}/systemd.service &>>${LOG}
   CHECK_STAT $?
 
   PRINT "Organise content"
@@ -150,6 +150,39 @@ PYTHON() {
 
   PRINT "Update the user and group id's"
   sed -i -e "/^uid/ c uid = ${USER_ID}" -e "/^gid/ c gid = ${GROUP_ID}" /home/roboshop/payment/payment.ini &>>${LOG}
+  CHECK_STAT $?
+
+  SYSTEMD
+
+}
+
+GOLANG() {
+
+  PRINT "Install golang"
+  yum install golang -y &>>${LOG}
+  CHECK_STAT $?
+
+  PRINT "Add application user"
+  id roboshop &>>${LOG}
+  if [ $? -ne 0 ]; then
+    useradd roboshop &>>${LOG}
+  fi
+  CHECK_STAT $?
+
+  PRINT "Download ${COMPONENT} content"
+  curl -s -L -o /tmp/${COMPONENT}.zip "https://github.com/roboshop-devops-project/${COMPONENT}/archive/refs/heads/main.zip" &>>${LOG} && cd /home/roboshop
+  CHECK_STAT $?
+
+  PRINT "Remove old content"
+  rm -rf ${COMPONENT} &>>${LOG}
+  CHECK_STAT $?
+
+  PRINT "Extract ${COMPONENT} content"
+  unzip /tmp/${COMPONENT}.zip &>>${LOG} && mv ${COMPONENT}-main ${COMPONENT} && cd /home/roboshop/${COMPONENT}
+  CHECK_STAT $?
+
+  PRINT "Install golang dependencies"
+  go mod init ${COMPONENT} &>>${LOG} && go get &>>${LOG} && go build &>>${LOG}
   CHECK_STAT $?
 
   SYSTEMD
