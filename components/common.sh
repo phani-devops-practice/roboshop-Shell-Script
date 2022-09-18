@@ -1,6 +1,6 @@
 CHECK_ROOT() {
   USER_ID=$(id -u) 
-  if [ ${USER_ID} -ne 0 ]; then
+  if [ $USER_ID -ne 0 ]; then
     echo -e "\e[31m Needed to run the script as root user or add sudo\e[0m"
     exit 1
   fi
@@ -21,10 +21,8 @@ CHECK_STAT() {
 }
 
 PRINT() {
-  if [ $? -ne 0 ]; then
-    echo "-----$1-----" >>${LOG}
-    echo "$1"
-  fi
+  echo "-----$1-----" >>${LOG}
+  echo "$1"
 }
 
 
