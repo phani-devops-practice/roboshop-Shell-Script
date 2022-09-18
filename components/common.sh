@@ -11,7 +11,7 @@ rm -f $LOG
 
 CHECK_STAT() {
   echo "----------------------------" >>${LOG}
-  echo -e "\n check log file - ${LOG} for errors\n"
+  echo -e "\n check log file - ${LOG} for errors\n" &>>${LOG}
   if [ $1 -ne 0 ]; then
     echo -e "\e[31m FAILURE \e[0m"
   else
