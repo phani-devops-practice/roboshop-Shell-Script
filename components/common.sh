@@ -55,7 +55,7 @@ SYSTEMD() {
   CHECK_STAT $?
 
   PRINT "Organise content"
-  mv /home/roboshop/${COMPONENT}/mongodb.repo /etc/systemd/system/${COMPONENT}.service &>>${LOG} && systemctl daemon-reload &>>${LOG}
+  mv /home/roboshop/${COMPONENT}/systemd.service /etc/systemd/system/${COMPONENT}.service &>>${LOG} && systemctl daemon-reload &>>${LOG}
   CHECK_STAT $?
 
   PRINT "Start ${COMPONENT} service"
