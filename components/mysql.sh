@@ -29,17 +29,17 @@ if [ $? -ne 0 ]; then
   CHECK_STAT $?
 fi
 
-#echo show plugins | mysql -uroot -p"{MYSQL_PASSWORD}" 2>>${LOG} | grep validate_password &>>${LOG}
-#if [ $? -eq 0 ]; then
-#  PRINT "uninstall the validate_plugin"
-#  echo "uninstall plugin validate_password;" | mysql -uroot -p"${MYSQL_PASSWORD}" &>>${LOG}
-#  CHECK_STAT $?
-#fi
-#
-#PRINT "Download Schema"
-#curl -s -L -o /tmp/mysql.zip "https://github.com/roboshop-devops-project/mysql/archive/main.zip" &>>${LOG}
-#CHECK_STAT $?
-#
-#PRINT "Load Schema"
-#cd /tmp && unzip -o mysql.zip &>>${LOG} && cd mysql-main && mysql -uroot -p"${MYSQL_PASSWORD}" <shipping.sql &>>${LOG}
-#CHECK_STAT $?
+echo show plugins | mysql -uroot -p"{MYSQL_PASSWORD}" 2>>${LOG} | grep validate_password &>>${LOG}
+if [ $? -eq 0 ]; then
+  PRINT "uninstall the validate_plugin"
+  echo "uninstall plugin validate_password;" | mysql -uroot -p"${MYSQL_PASSWORD}" &>>${LOG}
+  CHECK_STAT $?
+fi
+
+PRINT "Download Schema"
+curl -s -L -o /tmp/mysql.zip "https://github.com/roboshop-devops-project/mysql/archive/main.zip" &>>${LOG}
+CHECK_STAT $?
+
+PRINT "Load Schema"
+cd /tmp && unzip -o mysql.zip &>>${LOG} && cd mysql-main && mysql -uroot -p"${MYSQL_PASSWORD}" <shipping.sql &>>${LOG}
+CHECK_STAT $?
