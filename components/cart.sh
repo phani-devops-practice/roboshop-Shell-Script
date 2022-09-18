@@ -10,7 +10,8 @@ echo "Install nodejs"
 yum install nodejs -y &>>${LOG}
 CHECK_STAT $?
 
-exit 1
+exit 
+
 useradd roboshop
 curl -s -L -o /tmp/cart.zip "https://github.com/roboshop-devops-project/cart/archive/main.zip"
 cd /home/roboshop
