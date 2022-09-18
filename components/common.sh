@@ -58,7 +58,7 @@ SYSTEMD() {
   mv /home/roboshop/${COMPONENT}/systemd.service /etc/systemd/system/${COMPONENT}.service &>>${LOG} && systemctl daemon-reload &>>${LOG}
   CHECK_STAT $?
 
-  PRINT "Start cart service"
+  PRINT "Start ${COMPONENT} service"
   systemctl restart ${COMPONENT} &>>${LOG} && systemctl enable ${COMPONENT} &>>${LOG}
   CHECK_STAT $?
 
