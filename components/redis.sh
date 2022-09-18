@@ -1,3 +1,8 @@
+source components/common.sh
+
+CHECK_ROOT
+
+
 PRINT "Configure the yum repos"
 curl -L -o /etc/yum.repos.d/redis.repo https://raw.githubusercontent.com/roboshop-devops-project/redis/main/redis.repo &>>${LOG}
 CHECK_STAT $?
